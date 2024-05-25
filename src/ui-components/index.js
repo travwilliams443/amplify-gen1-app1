@@ -4,6 +4,9 @@
  * Any changes to this file will be overwritten when running amplify pull. *
  **************************************************************************/
 
+export { default as AccountCreateForm } from "./AccountCreateForm";
+export { default as AccountTransferUpdateForm } from "./AccountTransferUpdateForm";
+export { default as AccountUpdateForm } from "./AccountUpdateForm";
 export { default as ActionCard } from "./ActionCard";
 export { default as Ampligram } from "./Ampligram";
 export { default as CTASection } from "./CTASection";

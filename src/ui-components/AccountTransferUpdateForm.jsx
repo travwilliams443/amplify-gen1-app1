@@ -9,11 +9,13 @@ import * as React from "react";
 import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
 import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
-import { createAccountTransfer } from "../graphql/mutations";
+import { getAccountTransfer } from "../graphql/queries";
+import { updateAccountTransfer } from "../graphql/mutations";
 const client = generateClient();
-export default function CreateTransfer(props) {
+export default function AccountTransferUpdateForm(props) {
   const {
-    clearOnSuccess = true,
+    id: idProp,
+    accountTransfer: accountTransferModelProp,
     onSuccess,
     onError,
     onSubmit,
@@ -62,19 +64,40 @@ export default function CreateTransfer(props) {
   const [notes, setNotes] = React.useState(initialValues.notes);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
-    setFromAccountId(initialValues.fromAccountId);
-    setFromAccountNumber(initialValues.fromAccountNumber);
-    setFromAccountHolderName(initialValues.fromAccountHolderName);
-    setToAccountId(initialValues.toAccountId);
-    setToAccountNumber(initialValues.toAccountNumber);
-    setToAccountHolderName(initialValues.toAccountHolderName);
-    setAmount(initialValues.amount);
-    setCurrency(initialValues.currency);
-    setTransferDate(initialValues.transferDate);
-    setStatus(initialValues.status);
-    setNotes(initialValues.notes);
+    const cleanValues = accountTransferRecord
+      ? { ...initialValues, ...accountTransferRecord }
+      : initialValues;
+    setFromAccountId(cleanValues.fromAccountId);
+    setFromAccountNumber(cleanValues.fromAccountNumber);
+    setFromAccountHolderName(cleanValues.fromAccountHolderName);
+    setToAccountId(cleanValues.toAccountId);
+    setToAccountNumber(cleanValues.toAccountNumber);
+    setToAccountHolderName(cleanValues.toAccountHolderName);
+    setAmount(cleanValues.amount);
+    setCurrency(cleanValues.currency);
+    setTransferDate(cleanValues.transferDate);
+    setStatus(cleanValues.status);
+    setNotes(cleanValues.notes);
     setErrors({});
   };
+  const [accountTransferRecord, setAccountTransferRecord] = React.useState(
+    accountTransferModelProp
+  );
+  React.useEffect(() => {
+    const queryData = async () => {
+      const record = idProp
+        ? (
+            await client.graphql({
+              query: getAccountTransfer.replaceAll("__typename", ""),
+              variables: { id: idProp },
+            })
+          )?.data?.getAccountTransfer
+        : accountTransferModelProp;
+      setAccountTransferRecord(record);
+    };
+    queryData();
+  }, [idProp, accountTransferModelProp]);
+  React.useEffect(resetStateValues, [accountTransferRecord]);
   const validations = {
     fromAccountId: [{ type: "Required" }],
     fromAccountNumber: [{ type: "Required" }],
@@ -141,7 +164,7 @@ export default function CreateTransfer(props) {
           currency,
           transferDate,
           status,
-          notes,
+          notes: notes ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -172,18 +195,16 @@ export default function CreateTransfer(props) {
             }
           });
           await client.graphql({
-            query: createAccountTransfer.replaceAll("__typename", ""),
+            query: updateAccountTransfer.replaceAll("__typename", ""),
             variables: {
               input: {
+                id: accountTransferRecord.id,
                 ...modelFields,
               },
             },
           });
           if (onSuccess) {
             onSuccess(modelFields);
-          }
-          if (clearOnSuccess) {
-            resetStateValues();
           }
         } catch (err) {
           if (onError) {
@@ -192,16 +213,11 @@ export default function CreateTransfer(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "CreateTransfer")}
+      {...getOverrideProps(overrides, "AccountTransferUpdateForm")}
       {...rest}
     >
       <TextField
-        label={
-          <span style={{ display: "inline-flex" }}>
-            <span>From account id</span>
-            <span style={{ color: "red" }}>*</span>
-          </span>
-        }
+        label="From account id"
         isRequired={true}
         isReadOnly={false}
         value={fromAccountId}
@@ -235,12 +251,7 @@ export default function CreateTransfer(props) {
         {...getOverrideProps(overrides, "fromAccountId")}
       ></TextField>
       <TextField
-        label={
-          <span style={{ display: "inline-flex" }}>
-            <span>From account number</span>
-            <span style={{ color: "red" }}>*</span>
-          </span>
-        }
+        label="From account number"
         isRequired={true}
         isReadOnly={false}
         value={fromAccountNumber}
@@ -276,12 +287,7 @@ export default function CreateTransfer(props) {
         {...getOverrideProps(overrides, "fromAccountNumber")}
       ></TextField>
       <TextField
-        label={
-          <span style={{ display: "inline-flex" }}>
-            <span>From account holder name</span>
-            <span style={{ color: "red" }}>*</span>
-          </span>
-        }
+        label="From account holder name"
         isRequired={true}
         isReadOnly={false}
         value={fromAccountHolderName}
@@ -317,12 +323,7 @@ export default function CreateTransfer(props) {
         {...getOverrideProps(overrides, "fromAccountHolderName")}
       ></TextField>
       <TextField
-        label={
-          <span style={{ display: "inline-flex" }}>
-            <span>To account id</span>
-            <span style={{ color: "red" }}>*</span>
-          </span>
-        }
+        label="To account id"
         isRequired={true}
         isReadOnly={false}
         value={toAccountId}
@@ -356,12 +357,7 @@ export default function CreateTransfer(props) {
         {...getOverrideProps(overrides, "toAccountId")}
       ></TextField>
       <TextField
-        label={
-          <span style={{ display: "inline-flex" }}>
-            <span>To account number</span>
-            <span style={{ color: "red" }}>*</span>
-          </span>
-        }
+        label="To account number"
         isRequired={true}
         isReadOnly={false}
         value={toAccountNumber}
@@ -395,12 +391,7 @@ export default function CreateTransfer(props) {
         {...getOverrideProps(overrides, "toAccountNumber")}
       ></TextField>
       <TextField
-        label={
-          <span style={{ display: "inline-flex" }}>
-            <span>To account holder name</span>
-            <span style={{ color: "red" }}>*</span>
-          </span>
-        }
+        label="To account holder name"
         isRequired={true}
         isReadOnly={false}
         value={toAccountHolderName}
@@ -436,12 +427,7 @@ export default function CreateTransfer(props) {
         {...getOverrideProps(overrides, "toAccountHolderName")}
       ></TextField>
       <TextField
-        label={
-          <span style={{ display: "inline-flex" }}>
-            <span>Amount</span>
-            <span style={{ color: "red" }}>*</span>
-          </span>
-        }
+        label="Amount"
         isRequired={true}
         isReadOnly={false}
         type="number"
@@ -479,12 +465,7 @@ export default function CreateTransfer(props) {
         {...getOverrideProps(overrides, "amount")}
       ></TextField>
       <TextField
-        label={
-          <span style={{ display: "inline-flex" }}>
-            <span>Currency</span>
-            <span style={{ color: "red" }}>*</span>
-          </span>
-        }
+        label="Currency"
         isRequired={true}
         isReadOnly={false}
         value={currency}
@@ -518,12 +499,7 @@ export default function CreateTransfer(props) {
         {...getOverrideProps(overrides, "currency")}
       ></TextField>
       <TextField
-        label={
-          <span style={{ display: "inline-flex" }}>
-            <span>Transfer date</span>
-            <span style={{ color: "red" }}>*</span>
-          </span>
-        }
+        label="Transfer date"
         isRequired={true}
         isReadOnly={false}
         type="datetime-local"
@@ -559,12 +535,7 @@ export default function CreateTransfer(props) {
         {...getOverrideProps(overrides, "transferDate")}
       ></TextField>
       <TextField
-        label={
-          <span style={{ display: "inline-flex" }}>
-            <span>Status</span>
-            <span style={{ color: "red" }}>*</span>
-          </span>
-        }
+        label="Status"
         isRequired={true}
         isReadOnly={false}
         value={status}
@@ -636,13 +607,14 @@ export default function CreateTransfer(props) {
         {...getOverrideProps(overrides, "CTAFlex")}
       >
         <Button
-          children="Clear"
+          children="Reset"
           type="reset"
           onClick={(event) => {
             event.preventDefault();
             resetStateValues();
           }}
-          {...getOverrideProps(overrides, "ClearButton")}
+          isDisabled={!(idProp || accountTransferModelProp)}
+          {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
           gap="15px"
@@ -652,7 +624,10 @@ export default function CreateTransfer(props) {
             children="Submit"
             type="submit"
             variation="primary"
-            isDisabled={Object.values(errors).some((e) => e?.hasError)}
+            isDisabled={
+              !(idProp || accountTransferModelProp) ||
+              Object.values(errors).some((e) => e?.hasError)
+            }
             {...getOverrideProps(overrides, "SubmitButton")}
           ></Button>
         </Flex>

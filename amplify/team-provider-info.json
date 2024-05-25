@@ -17,6 +17,9 @@
           "appId": "d38bqegiusmbc5",
           "type": "manual"
         }
+      },
+      "api": {
+        "amplifygen1app1": {}
       }
     }
   }

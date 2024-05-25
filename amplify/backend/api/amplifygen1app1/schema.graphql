@@ -1,3 +1,13 @@
+type Account @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  accountNumber: String!
+  accountHolderName: String!
+  accountType: String! # e.g., "Checking", "Savings"
+  balance: Float!
+  currency: String!
+  createdAt: AWSDateTime
+  updatedAt: AWSDateTime
+}
 type AccountTransfer @model @auth(rules: [{allow: public}]) {
   id: ID!
   fromAccountId: ID!
@@ -12,3 +22,4 @@ type AccountTransfer @model @auth(rules: [{allow: public}]) {
   status: String!
   notes: String
 }
+ 
