@@ -5,9 +5,8 @@
  **************************************************************************/
 
 import * as React from "react";
-import { NavBarHeader3Props } from "./NavBarHeader3";
-import { NavBarHeader2Props } from "./NavBarHeader2";
-import { FlexProps } from "@aws-amplify/ui-react";
+import { AccountCardProps } from "./AccountCard";
+import { CollectionProps } from "@aws-amplify/ui-react";
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
 } | null;
@@ -19,12 +18,17 @@ export declare type Variant = {
     overrides: EscapeHatchProps;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type NavBarHeaderOverridesProps = {
-    NavBarHeader?: PrimitiveOverrideProps<FlexProps>;
-    NavBarHeader3?: NavBarHeader3Props;
-    NavBarHeader2?: NavBarHeader2Props;
+export declare type AccountCardCollectionOverridesProps = {
+    AccountCardCollection?: PrimitiveOverrideProps<CollectionProps>;
+    AccountCard?: AccountCardProps;
 } & EscapeHatchProps;
-export declare type NavBarHeaderProps = React.PropsWithChildren<Partial<FlexProps> & {
-    overrides?: NavBarHeaderOverridesProps | undefined | null;
+export declare type AccountCardCollectionProps = React.PropsWithChildren<Partial<CollectionProps<any>> & {
+    items?: any[];
+    overrideItems?: (collectionItem: {
+        item: any;
+        index: number;
+    }) => AccountCardProps;
+} & {
+    overrides?: AccountCardCollectionOverridesProps | undefined | null;
 }>;
-export default function NavBarHeader(props: NavBarHeaderProps): React.ReactElement;
+export default function AccountCardCollection(props: AccountCardCollectionProps): React.ReactElement;

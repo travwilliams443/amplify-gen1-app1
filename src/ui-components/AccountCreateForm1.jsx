@@ -11,7 +11,7 @@ import { fetchByPath, getOverrideProps, validateField } from "./utils";
 import { generateClient } from "aws-amplify/api";
 import { createAccount } from "../graphql/mutations";
 const client = generateClient();
-export default function AccountCreateForm(props) {
+export default function AccountCreateForm1(props) {
   const {
     clearOnSuccess = true,
     onSuccess,
@@ -164,11 +164,16 @@ export default function AccountCreateForm(props) {
           }
         }
       }}
-      {...getOverrideProps(overrides, "AccountCreateForm")}
+      {...getOverrideProps(overrides, "AccountCreateForm1")}
       {...rest}
     >
       <TextField
-        label="Account number"
+        label={
+          <span style={{ display: "inline-flex" }}>
+            <span>Account number</span>
+            <span style={{ color: "red" }}>*</span>
+          </span>
+        }
         isRequired={true}
         isReadOnly={false}
         value={accountNumber}
@@ -198,7 +203,12 @@ export default function AccountCreateForm(props) {
         {...getOverrideProps(overrides, "accountNumber")}
       ></TextField>
       <TextField
-        label="Account holder name"
+        label={
+          <span style={{ display: "inline-flex" }}>
+            <span>Account holder name</span>
+            <span style={{ color: "red" }}>*</span>
+          </span>
+        }
         isRequired={true}
         isReadOnly={false}
         value={accountHolderName}
@@ -230,7 +240,12 @@ export default function AccountCreateForm(props) {
         {...getOverrideProps(overrides, "accountHolderName")}
       ></TextField>
       <TextField
-        label="Account type"
+        label={
+          <span style={{ display: "inline-flex" }}>
+            <span>Account type</span>
+            <span style={{ color: "red" }}>*</span>
+          </span>
+        }
         isRequired={true}
         isReadOnly={false}
         value={accountType}
@@ -260,7 +275,12 @@ export default function AccountCreateForm(props) {
         {...getOverrideProps(overrides, "accountType")}
       ></TextField>
       <TextField
-        label="Balance"
+        label={
+          <span style={{ display: "inline-flex" }}>
+            <span>Balance</span>
+            <span style={{ color: "red" }}>*</span>
+          </span>
+        }
         isRequired={true}
         isReadOnly={false}
         type="number"
@@ -294,7 +314,12 @@ export default function AccountCreateForm(props) {
         {...getOverrideProps(overrides, "balance")}
       ></TextField>
       <TextField
-        label="Currency"
+        label={
+          <span style={{ display: "inline-flex" }}>
+            <span>Currency</span>
+            <span style={{ color: "red" }}>*</span>
+          </span>
+        }
         isRequired={true}
         isReadOnly={false}
         value={currency}

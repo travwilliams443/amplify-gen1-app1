@@ -21,7 +21,7 @@ export declare type ValidationResponse = {
     errorMessage?: string;
 };
 export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
-export declare type AccountUpdateFormInputValues = {
+export declare type AccountCreateForm1InputValues = {
     accountNumber?: string;
     accountHolderName?: string;
     accountType?: string;
@@ -30,7 +30,7 @@ export declare type AccountUpdateFormInputValues = {
     createdAt?: string;
     updatedAt?: string;
 };
-export declare type AccountUpdateFormValidationValues = {
+export declare type AccountCreateForm1ValidationValues = {
     accountNumber?: ValidationFunction<string>;
     accountHolderName?: ValidationFunction<string>;
     accountType?: ValidationFunction<string>;
@@ -40,8 +40,8 @@ export declare type AccountUpdateFormValidationValues = {
     updatedAt?: ValidationFunction<string>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type AccountUpdateFormOverridesProps = {
-    AccountUpdateFormGrid?: PrimitiveOverrideProps<GridProps>;
+export declare type AccountCreateForm1OverridesProps = {
+    AccountCreateForm1Grid?: PrimitiveOverrideProps<GridProps>;
     accountNumber?: PrimitiveOverrideProps<TextFieldProps>;
     accountHolderName?: PrimitiveOverrideProps<TextFieldProps>;
     accountType?: PrimitiveOverrideProps<TextFieldProps>;
@@ -50,15 +50,14 @@ export declare type AccountUpdateFormOverridesProps = {
     createdAt?: PrimitiveOverrideProps<TextFieldProps>;
     updatedAt?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
-export declare type AccountUpdateFormProps = React.PropsWithChildren<{
-    overrides?: AccountUpdateFormOverridesProps | undefined | null;
+export declare type AccountCreateForm1Props = React.PropsWithChildren<{
+    overrides?: AccountCreateForm1OverridesProps | undefined | null;
 } & {
-    id?: string;
-    account?: any;
-    onSubmit?: (fields: AccountUpdateFormInputValues) => AccountUpdateFormInputValues;
-    onSuccess?: (fields: AccountUpdateFormInputValues) => void;
-    onError?: (fields: AccountUpdateFormInputValues, errorMessage: string) => void;
-    onChange?: (fields: AccountUpdateFormInputValues) => AccountUpdateFormInputValues;
-    onValidate?: AccountUpdateFormValidationValues;
+    clearOnSuccess?: boolean;
+    onSubmit?: (fields: AccountCreateForm1InputValues) => AccountCreateForm1InputValues;
+    onSuccess?: (fields: AccountCreateForm1InputValues) => void;
+    onError?: (fields: AccountCreateForm1InputValues, errorMessage: string) => void;
+    onChange?: (fields: AccountCreateForm1InputValues) => AccountCreateForm1InputValues;
+    onValidate?: AccountCreateForm1ValidationValues;
 } & React.CSSProperties>;
-export default function AccountUpdateForm(props: AccountUpdateFormProps): React.ReactElement;
+export default function AccountCreateForm1(props: AccountCreateForm1Props): React.ReactElement;

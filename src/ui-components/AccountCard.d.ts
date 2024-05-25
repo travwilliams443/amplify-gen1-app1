@@ -5,9 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { NavBarHeader3Props } from "./NavBarHeader3";
-import { NavBarHeader2Props } from "./NavBarHeader2";
-import { FlexProps } from "@aws-amplify/ui-react";
+import { FlexProps, TextProps } from "@aws-amplify/ui-react";
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
 } | null;
@@ -19,12 +17,17 @@ export declare type Variant = {
     overrides: EscapeHatchProps;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type NavBarHeaderOverridesProps = {
-    NavBarHeader?: PrimitiveOverrideProps<FlexProps>;
-    NavBarHeader3?: NavBarHeader3Props;
-    NavBarHeader2?: NavBarHeader2Props;
+export declare type AccountCardOverridesProps = {
+    AccountCard?: PrimitiveOverrideProps<FlexProps>;
+    "Frame 417"?: PrimitiveOverrideProps<FlexProps>;
+    "Account Title"?: PrimitiveOverrideProps<FlexProps>;
+    "Account Type"?: PrimitiveOverrideProps<TextProps>;
+    "Account Number"?: PrimitiveOverrideProps<TextProps>;
+    Balance?: PrimitiveOverrideProps<TextProps>;
 } & EscapeHatchProps;
-export declare type NavBarHeaderProps = React.PropsWithChildren<Partial<FlexProps> & {
-    overrides?: NavBarHeaderOverridesProps | undefined | null;
+export declare type AccountCardProps = React.PropsWithChildren<Partial<FlexProps> & {
+    account?: any;
+} & {
+    overrides?: AccountCardOverridesProps | undefined | null;
 }>;
-export default function NavBarHeader(props: NavBarHeaderProps): React.ReactElement;
+export default function AccountCard(props: AccountCardProps): React.ReactElement;

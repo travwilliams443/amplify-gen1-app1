@@ -5,9 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { NavBarHeader3Props } from "./NavBarHeader3";
-import { NavBarHeader2Props } from "./NavBarHeader2";
-import { FlexProps } from "@aws-amplify/ui-react";
+import { ButtonProps, FlexProps, TextProps } from "@aws-amplify/ui-react";
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
 } | null;
@@ -19,12 +17,15 @@ export declare type Variant = {
     overrides: EscapeHatchProps;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type NavBarHeaderOverridesProps = {
-    NavBarHeader?: PrimitiveOverrideProps<FlexProps>;
-    NavBarHeader3?: NavBarHeader3Props;
-    NavBarHeader2?: NavBarHeader2Props;
+export declare type LeftOverridesProps = {
+    Left?: PrimitiveOverrideProps<FlexProps>;
+    HeroMessage?: PrimitiveOverrideProps<FlexProps>;
+    Message?: PrimitiveOverrideProps<FlexProps>;
+    Heading?: PrimitiveOverrideProps<TextProps>;
+    Body?: PrimitiveOverrideProps<TextProps>;
+    Button?: PrimitiveOverrideProps<ButtonProps>;
 } & EscapeHatchProps;
-export declare type NavBarHeaderProps = React.PropsWithChildren<Partial<FlexProps> & {
-    overrides?: NavBarHeaderOverridesProps | undefined | null;
+export declare type LeftProps = React.PropsWithChildren<Partial<FlexProps> & {
+    overrides?: LeftOverridesProps | undefined | null;
 }>;
-export default function NavBarHeader(props: NavBarHeaderProps): React.ReactElement;
+export default function Left(props: LeftProps): React.ReactElement;
