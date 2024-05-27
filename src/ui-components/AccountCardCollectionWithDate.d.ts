@@ -5,7 +5,8 @@
  **************************************************************************/
 
 import * as React from "react";
-import { FlexProps, TextProps } from "@aws-amplify/ui-react";
+import { AccountCardProps } from "./AccountCard";
+import { CollectionProps } from "@aws-amplify/ui-react";
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
 } | null;
@@ -17,19 +18,17 @@ export declare type Variant = {
     overrides: EscapeHatchProps;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
-export declare type AccountCardOverridesProps = {
-    AccountCard?: PrimitiveOverrideProps<FlexProps>;
-    "Frame 417"?: PrimitiveOverrideProps<FlexProps>;
-    "Account Title"?: PrimitiveOverrideProps<FlexProps>;
-    "Account Type"?: PrimitiveOverrideProps<TextProps>;
-    "Account Number"?: PrimitiveOverrideProps<TextProps>;
-    "Frame 440"?: PrimitiveOverrideProps<FlexProps>;
-    Balance?: PrimitiveOverrideProps<TextProps>;
-    AsOfDatetime?: PrimitiveOverrideProps<TextProps>;
+export declare type AccountCardCollectionWithDateOverridesProps = {
+    AccountCardCollectionWithDate?: PrimitiveOverrideProps<CollectionProps>;
+    AccountCard?: AccountCardProps;
 } & EscapeHatchProps;
-export declare type AccountCardProps = React.PropsWithChildren<Partial<FlexProps> & {
-    account?: any;
+export declare type AccountCardCollectionWithDateProps = React.PropsWithChildren<Partial<CollectionProps<any>> & {
+    items?: any[];
+    overrideItems?: (collectionItem: {
+        item: any;
+        index: number;
+    }) => AccountCardProps;
 } & {
-    overrides?: AccountCardOverridesProps | undefined | null;
+    overrides?: AccountCardCollectionWithDateOverridesProps | undefined | null;
 }>;
-export default function AccountCard(props: AccountCardProps): React.ReactElement;
+export default function AccountCardCollectionWithDate(props: AccountCardCollectionWithDateProps): React.ReactElement;

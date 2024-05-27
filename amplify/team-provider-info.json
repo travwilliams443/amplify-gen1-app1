@@ -26,7 +26,7 @@
       "function": {
         "amplifygen1app1fn1": {
           "deploymentBucketName": "amplify-amplifygen1app1-dev-f0e21-deployment",
-          "s3Key": "amplify-builds/amplifygen1app1fn1-2f5a7242766551484c74-build.zip"
+          "s3Key": "amplify-builds/amplifygen1app1fn1-772f6c65746157544a52-build.zip"
         },
         "amplifygen1app1fn2": {
           "deploymentBucketName": "amplify-amplifygen1app1-dev-f0e21-deployment",

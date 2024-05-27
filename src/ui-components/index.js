@@ -6,6 +6,7 @@
 
 export { default as AccountCard } from "./AccountCard";
 export { default as AccountCardCollection } from "./AccountCardCollection";
+export { default as AccountCardCollectionWithDate } from "./AccountCardCollectionWithDate";
 export { default as AccountCreateForm1 } from "./AccountCreateForm1";
 export { default as AccountTransferUpdateForm } from "./AccountTransferUpdateForm";
 export { default as AccountUpdateForm } from "./AccountUpdateForm";

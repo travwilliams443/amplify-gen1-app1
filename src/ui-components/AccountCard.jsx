@@ -94,27 +94,62 @@ export default function AccountCard(props) {
             {...getOverrideProps(overrides, "Account Number")}
           ></Text>
         </Flex>
-        <Text
-          fontFamily="Inter"
-          fontSize="16px"
-          fontWeight="800"
-          color="rgba(13,26,38,1)"
-          lineHeight="20px"
-          textAlign="right"
-          display="block"
+        <Flex
+          gap="10px"
           direction="column"
-          justifyContent="unset"
-          width="unset"
-          height="unset"
-          gap="unset"
-          alignItems="unset"
+          width="247px"
+          height="42px"
+          justifyContent="flex-start"
+          alignItems="flex-start"
           shrink="0"
           position="relative"
           padding="0px 0px 0px 0px"
-          whiteSpace="pre-wrap"
-          children={account?.balance}
-          {...getOverrideProps(overrides, "Balance")}
-        ></Text>
+          {...getOverrideProps(overrides, "Frame 440")}
+        >
+          <Text
+            fontFamily="Inter"
+            fontSize="16px"
+            fontWeight="800"
+            color="rgba(13,26,38,1)"
+            lineHeight="20px"
+            textAlign="right"
+            display="block"
+            direction="column"
+            justifyContent="unset"
+            width="unset"
+            height="unset"
+            gap="unset"
+            alignItems="unset"
+            shrink="0"
+            alignSelf="stretch"
+            position="relative"
+            padding="0px 0px 0px 0px"
+            whiteSpace="pre-wrap"
+            children={account?.balance}
+            {...getOverrideProps(overrides, "Balance")}
+          ></Text>
+          <Text
+            fontFamily="Inter"
+            fontSize="16px"
+            fontWeight="200"
+            color="rgba(13,26,38,1)"
+            lineHeight="20px"
+            textAlign="right"
+            display="block"
+            direction="column"
+            justifyContent="unset"
+            width="247px"
+            height="unset"
+            gap="unset"
+            alignItems="unset"
+            shrink="0"
+            position="relative"
+            padding="0px 0px 0px 0px"
+            whiteSpace="pre-wrap"
+            children="Balance"
+            {...getOverrideProps(overrides, "AsOfDatetime")}
+          ></Text>
+        </Flex>
       </Flex>
     </Flex>
   );
